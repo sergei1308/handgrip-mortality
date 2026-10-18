@@ -56,7 +56,7 @@ form.addEventListener("submit",async event=>{
   const key=await crypto.subtle.deriveKey({name:"PBKDF2",hash:"SHA-256",salt:bytes(data.salt),iterations:data.iterations},
      material,{name:"AES-GCM",length:256},false,["decrypt"]);
   const clear=await crypto.subtle.decrypt({name:"AES-GCM",iv:bytes(data.iv)},key,bytes(data.ciphertext));
-  const html=new TextDecoder("utf-8",{fatal:true}).decode(clear);
+  const html=new TextDecoder("utf-8",{fatal:true}).decode(clear).replace("This draft has not been published.","Password-protected research preview published on GitHub Pages on 18 October 2026.");
   document.open();document.write(html);document.close();
  }catch(e){
   error.textContent="Incorrect passcode or unable to open the preview. Try again.";
